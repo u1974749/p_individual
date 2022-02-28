@@ -11,6 +11,10 @@
 	height: 75px;
 	font-size: 16px;
 	margin-top: 10px;
+	background-color:rgb(43, 42, 44);
+	border: 2px solid rgb(160, 243, 243);
+	color: white;
+	font-style:oblique;
 }
 
 p{
