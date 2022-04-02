@@ -40,6 +40,8 @@ button.menu-object:hover:not(:active){
 }
 
 .menu-object{
+	/*display: grid;
+	grid-template-columns: 1fr;*/
 	display:block;
 	margin-left: auto;
 	margin-right: auto;

@@ -5,7 +5,10 @@ var options = function(){
 	};
 	var load = function(){
 		var json = localStorage.getItem("config","{'cards':2,'dificulty':'hard'}");
-		options_data = JSON.parse(json);
+		if(json)
+		{
+			options_data = JSON.parse(json);
+		}
 	};
 	var save = function(){
 		localStorage.setItem("config", JSON.stringify(options_data));
@@ -32,14 +35,13 @@ var options = function(){
 		methods: { 
 			discard: function(){
 				this.num = options_data.cards;
-				this.dificulty = options_data.dificulty;
+				this.dificulty = this.dificulty;
 			},
 			save: function(){
 				options_data.cards = this.num;
 				options_data.dificulty = this.dificulty;
-				alert("Aaaaaaaa");
 				save();
-				loadpage("../js/index.html");
+				loadpage("../index.html");
 			}
 		}
 	});
