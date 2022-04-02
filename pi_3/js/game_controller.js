@@ -11,6 +11,19 @@ var game = new Vue({
 		num_cards: 2,
 		bad_clicks: 0
 	},
+	timer: function(){
+		
+		alert("funciona");
+	},
+	
+	aaaa: function(){
+		var front = null;
+		for (var i = 0; i < this.items.length; i++){
+			front = this.current_card[i];
+			i_front = i;
+		}
+	},
+
 	created: function(){
 		this.username = sessionStorage.getItem("username","unknown");
 		this.items = items.slice(); // Copiem l'array
@@ -21,6 +34,7 @@ var game = new Vue({
 		for (var i = 0; i < this.items.length; i++){
 			this.current_card.push({done: false, texture: back});
 		}
+		
 	},
 	methods: {
 		clickCard: function(i){
@@ -53,7 +67,32 @@ var game = new Vue({
 					}
 				}
 			}			
-		}
+		},
+		show: function(value){
+			if (value.texture === back) return;
+			var front = null;
+			var i_front = -1;
+			for (var i = 0; i < this.show.length; i++){
+				if (!this.show[i].done && this.show[i].texture !== back){
+					if (front){
+						if (front.texture === this.show[i].texture){
+							front.done = this.show[i].done = true;
+							this.num_cards--;
+						}
+						else{
+							Vue.set(this.show, i, {done: false, texture: back});
+							Vue.set(this.show, i_front, {done: false, texture: back});
+							this.bad_clicks++;
+							break;
+						}
+					}
+					else{
+						front = this.show[i];
+						i_front = i;
+					}
+				}
+			}			
+		},
 	},
 	computed: {
 		score_text: function(){

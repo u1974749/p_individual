@@ -14,9 +14,9 @@
 			</p>
 			<img v-else v-for="(card, indx) in current_card" :src="card.texture" v-on:click="clickCard(indx)">
 		</div>
-		<a class="menu-object" href="../">GoToMenu</a>
+		<button class="menu-object color border"  onclick="loadpage('../')">GoToMenu</button>
 	</body>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></>
 	<script src="../js/game_controller.js"></script>
 </html>
 

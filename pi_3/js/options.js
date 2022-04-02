@@ -37,8 +37,9 @@ var options = function(){
 			save: function(){
 				options_data.cards = this.num;
 				options_data.dificulty = this.dificulty;
+				alert("Aaaaaaaa");
 				save();
-				loadpage("../");
+				loadpage("../js/index.html");
 			}
 		}
 	});
