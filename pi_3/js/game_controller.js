@@ -13,16 +13,8 @@ var load = function(){
 		options_data = JSON.parse(json);
 	}
 };
-ob=this;
+
 load();
-
-function flip(){
-	for (var i = 0; i < this.items.length; i++){
-		Vue.set(ob.current_card, i, {done: false, texture: this.items[i]}); //falta lo del this
-	}
-}
-//	Vue.set(this.current_card, i, {done: false, texture: back}); //falta lo del this
-
 
 var game = new Vue({
 	el: "#game_id",
@@ -32,34 +24,47 @@ var game = new Vue({
 		items: [],
 		num_cards: 2,
 		bad_clicks: 0,
-		level: "normal"
+		level: "normal", // indica el nivel del juego
+		start: false //indica si se ha terminado de mostrar las cartas
 	},
-
+	flip: function(){
+		for (var i = 0; i < this.items.length; i++){
+			//Vue.set(this.current_card, i, {done: false, texture: this.items[i]}); //gira las cartas para ponerlas boca abajo
+			this.current_card.set({done: false, texture: back});
+		}
+	},
 	created: function(){
 		this.username = sessionStorage.getItem("username","unknown");
 		this.items = items.slice(); // Copiem l'array
 		this.items.sort(function(){return Math.random() - 0.5}); // Array aleatòria
-		this.num_cards = options_data.cards;
+		this.num_cards = options_data.cards; // el numero de cartas es igual al que elije el usuario
 		this.items = this.items.slice(0, this.num_cards); // Agafem els primers numCards elements
 		this.items = this.items.concat(this.items); // Dupliquem els elements
 		this.items.sort(function(){return Math.random() - 0.5}); // Array aleatòria
 		for (var i = 0; i < this.items.length; i++){
-			this.current_card.push({done: false, texture: this.items[i]}); //this.items[i]
+			this.current_card.push({done: false, texture: back}); 
+
+			//ESTA SERIA LA LINEA DE CODIGO CORRECTA PERO NO FUNCIONA EL FLIP
+			//POR LO QUE LO HE COMENTADO Y HE DEJADO LA LINEA ANTIGUA
+			//PARA PODER PROBAR EL RESTO DEL CODIGO
+			//this.current_card.push({done: false, texture: this.items[i]}); //muestra las cartas de frente
 		}
-		//var r = this.flip;
-		this.level = options_data.dificulty;
+	
+		this.level = options_data.dificulty; //iguala la dificultad a la elegida por el usuario
+		//Dependiendo del nivel mostrara las cartas mas o menos rapido
 		if(this.level == "easy")
 		{
-			setTimeout(flip, 100);
+			setTimeout(this.flip(), 5000);
 		}
 		else if(this.level == "normal")
 		{
-			setTimeout(flip, 100);
+			setTimeout(this.flip(), 2500);
 		}
 		else if(this.level == "hard")
 		{
-			setTimeout(this.flip, 100);
+			setTimeout(this.flip(), 100);
 		}
+		start = false;
 	},
 	methods: {
 		clickCard: function(i){
@@ -69,7 +74,7 @@ var game = new Vue({
 	},
 	watch: {
 		current_card: function(value){
-			if (true) return; //value.texture === back
+			if (value.texture === back || this.start) return; //el start permite salir del bucle cuando se colocan todas las cartas del derecho
 			var front = null;
 			var i_front = -1;
 			for (var i = 0; i < this.current_card.length; i++){
@@ -96,6 +101,7 @@ var game = new Vue({
 	},
 	computed: {
 		score_text: function(){
+			//dependiendo del nivel baja mas o menos los puntos
 			if(this.level == "easy")
 			{
 				return 100 - this.bad_clicks * 5;

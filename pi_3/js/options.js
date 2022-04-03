@@ -35,7 +35,7 @@ var options = function(){
 		methods: { 
 			discard: function(){
 				this.num = options_data.cards;
-				this.dificulty = this.dificulty;
+				this.dificulty = options_data.dificulty;
 			},
 			save: function(){
 				options_data.cards = this.num;

@@ -9,11 +9,11 @@
 	<body>
 		<div id="options_id">
 			<p class="menu-object" id="title">Options menú</p>
-			<div class="menu-object">
+			<div>
 				<label for="labelnumber">Number of cards:</label>
 				<input type="number" id="labelnumber" v-model="num">
 			</div>
-			<div class="menu-object border">
+			<div>
 				<p>Dificulty:</p>
 				<input type="radio" id="easy" value="easy" v-model="dificulty" checked>
 				<label for="easy">Easy</label>
@@ -22,8 +22,12 @@
 				<input type="radio" id="hard" value="hard" v-model="dificulty" >
 				<label for="hard">Hard</label>
 			</div>
-			<button class="menu-object color border" v-on:click="save"> Save </button>
-			<button class="menu-object color border" v-on:click="discard"> Discard </button>
+			<div class="menu-object">
+				<button class="menu-object color border" v-on:click="save"> Save </button>
+			</div>
+			<div class="menu-object">
+				<button class="menu-object color border" v-on:click="discard"> Discard </button>
+			</div>
 		</div>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>

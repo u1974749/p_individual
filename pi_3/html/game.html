@@ -5,7 +5,7 @@
 		<script src="../js/loader.js"></script>
 		<title> My first game - Game </title>
 	</head>
-	<body>
+	<div>
 		<div id="game_id">
 			<p class="menu-object" id="title">Is playing {{username}}</p>
 			<p class="menu-object" id="title" v-if="score_text <= 0"> You Lose </p>
@@ -14,7 +14,9 @@
 			</p>
 			<img v-else v-for="(card, indx) in current_card" :src="card.texture" v-on:click="clickCard(indx)">
 		</div>
-		<button class="menu-object color border"  onclick="loadpage('../')">GoToMenu</button>
+		<div class="menu-object">
+			<button class="menu-object color border"  onclick="loadpage('../')">GoToMenu</button>
+		</div>		
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
 	<script src="../js/game_controller.js"></script>
