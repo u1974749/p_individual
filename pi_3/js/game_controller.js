@@ -27,12 +27,12 @@ var game = new Vue({
 		level: "normal", // indica el nivel del juego
 		start: false //indica si se ha terminado de mostrar las cartas
 	},
-	flip: function(){
+	/*flip: function(){
 		for (var i = 0; i < this.items.length; i++){
 			//Vue.set(this.current_card, i, {done: false, texture: this.items[i]}); //gira las cartas para ponerlas boca abajo
 			this.current_card.set({done: false, texture: back});
 		}
-	},
+	},*/
 	created: function(){
 		this.username = sessionStorage.getItem("username","unknown");
 		this.items = items.slice(); // Copiem l'array
@@ -42,29 +42,36 @@ var game = new Vue({
 		this.items = this.items.concat(this.items); // Dupliquem els elements
 		this.items.sort(function(){return Math.random() - 0.5}); // Array aleatòria
 		for (var i = 0; i < this.items.length; i++){
-			this.current_card.push({done: false, texture: back}); 
+			//this.current_card.push({done: false, texture: back}); 
 
 			//ESTA SERIA LA LINEA DE CODIGO CORRECTA PERO NO FUNCIONA EL FLIP
 			//POR LO QUE LO HE COMENTADO Y HE DEJADO LA LINEA ANTIGUA
 			//PARA PODER PROBAR EL RESTO DEL CODIGO
-			//this.current_card.push({done: false, texture: this.items[i]}); //muestra las cartas de frente
+			this.current_card.push({done: false, texture: this.items[i]}); //muestra las cartas de frente
 		}
 	
 		this.level = options_data.dificulty; //iguala la dificultad a la elegida por el usuario
 		//Dependiendo del nivel mostrara las cartas mas o menos rapido
+		var showtime = 100;
 		if(this.level == "easy")
 		{
-			setTimeout(this.flip(), 5000);
+			showtime = 5000;
 		}
 		else if(this.level == "normal")
 		{
-			setTimeout(this.flip(), 2500);
+			showtime = 2500;
 		}
 		else if(this.level == "hard")
 		{
-			setTimeout(this.flip(), 100);
+			showtime = 100;
 		}
-		start = false;
+		
+		setTimeout (()=>{
+			for (var i = 0; i < this.items.length; i++){
+				Vue.set(this.current_card, i, {done: false, texture: this.items[i]}); //gira las cartas para ponerlas boca abajo
+			}
+			this.start = false;
+		}, showtime)
 	},
 	methods: {
 		clickCard: function(i){
