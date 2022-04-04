@@ -25,7 +25,7 @@ var game = new Vue({
 		num_cards: 2,
 		bad_clicks: 0,
 		level: "normal", // indica el nivel del juego
-		start: false //indica si se ha terminado de mostrar las cartas
+		start: true //indica si se ha terminado de mostrar las cartas
 	},
 	/*flip: function(){
 		for (var i = 0; i < this.items.length; i++){
